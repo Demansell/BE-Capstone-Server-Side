@@ -3,6 +3,7 @@ using System;
 using BeCapstone;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeCapstone.Migrations
 {
     [DbContext(typeof(BeCapstoneDbContext))]
-    partial class BeCapstoneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231118003708_clasesVenues")]
+    partial class clasesVenues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

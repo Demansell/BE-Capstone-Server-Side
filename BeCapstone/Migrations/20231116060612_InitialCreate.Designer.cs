@@ -3,6 +3,7 @@ using System;
 using BeCapstone;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeCapstone.Migrations
 {
     [DbContext(typeof(BeCapstoneDbContext))]
-    partial class BeCapstoneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231116060612_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,12 +37,7 @@ namespace BeCapstone.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("VenuesId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VenuesId");
 
                     b.ToTable("Payments");
                 });
@@ -110,12 +108,6 @@ namespace BeCapstone.Migrations
                     b.Property<int?>("PaymentTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("VenueCityId")
                         .HasColumnType("integer");
 
@@ -154,7 +146,23 @@ namespace BeCapstone.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("PaymentId")
+                        .IsUnique();
+
+                    b.HasIndex("VenueCityId")
+                        .IsUnique();
+
+                    b.HasIndex("VenueClothingTypeId")
+                        .IsUnique();
+
+                    b.HasIndex("VenueCountyId")
+                        .IsUnique();
+
+                    b.HasIndex("VenuePriceId")
+                        .IsUnique();
+
+                    b.HasIndex("VenueTypeId")
+                        .IsUnique();
 
                     b.ToTable("Venues");
                 });
@@ -170,12 +178,7 @@ namespace BeCapstone.Migrations
                     b.Property<string>("CityName")
                         .HasColumnType("text");
 
-                    b.Property<int?>("VenuesId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VenuesId");
 
                     b.ToTable("VenueCities");
                 });
@@ -189,14 +192,10 @@ namespace BeCapstone.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("VenuesId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VenuesId");
 
                     b.ToTable("VenueClothingTypes");
                 });
@@ -212,12 +211,7 @@ namespace BeCapstone.Migrations
                     b.Property<string>("VenueCountyName")
                         .HasColumnType("text");
 
-                    b.Property<int?>("VenuesId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VenuesId");
 
                     b.ToTable("VenueCounties");
                 });
@@ -275,12 +269,7 @@ namespace BeCapstone.Migrations
                     b.Property<string>("Price")
                         .HasColumnType("text");
 
-                    b.Property<int?>("VenuesId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VenuesId");
 
                     b.ToTable("VenuePrices");
                 });
@@ -296,12 +285,7 @@ namespace BeCapstone.Migrations
                     b.Property<string>("VenueTypeName")
                         .HasColumnType("text");
 
-                    b.Property<int?>("VenuesId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("VenuesId");
 
                     b.ToTable("VenueTypes");
                 });
@@ -339,73 +323,37 @@ namespace BeCapstone.Migrations
                     b.ToTable("PeopleGoingVenue");
                 });
 
-            modelBuilder.Entity("BeCapstone.Models.Payment", b =>
-                {
-                    b.HasOne("BeCapstone.Models.Venue", "Venues")
-                        .WithMany("Payments")
-                        .HasForeignKey("VenuesId");
-
-                    b.Navigation("Venues");
-                });
-
             modelBuilder.Entity("BeCapstone.Models.Venue", b =>
                 {
-                    b.HasOne("BeCapstone.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
+                    b.HasOne("BeCapstone.Models.Payment", null)
+                        .WithOne("Venues")
+                        .HasForeignKey("BeCapstone.Models.Venue", "PaymentId");
 
-                    b.Navigation("User");
-                });
+                    b.HasOne("BeCapstone.Models.VenueCity", null)
+                        .WithOne("Venues")
+                        .HasForeignKey("BeCapstone.Models.Venue", "VenueCityId");
 
-            modelBuilder.Entity("BeCapstone.Models.VenueCity", b =>
-                {
-                    b.HasOne("BeCapstone.Models.Venue", "Venues")
-                        .WithMany("VenueCities")
-                        .HasForeignKey("VenuesId");
+                    b.HasOne("BeCapstone.Models.VenueClothingType", null)
+                        .WithOne("Venues")
+                        .HasForeignKey("BeCapstone.Models.Venue", "VenueClothingTypeId");
 
-                    b.Navigation("Venues");
-                });
+                    b.HasOne("BeCapstone.Models.VenueCounty", null)
+                        .WithOne("Venues")
+                        .HasForeignKey("BeCapstone.Models.Venue", "VenueCountyId");
 
-            modelBuilder.Entity("BeCapstone.Models.VenueClothingType", b =>
-                {
-                    b.HasOne("BeCapstone.Models.Venue", "Venues")
-                        .WithMany("VenueClothingTypes")
-                        .HasForeignKey("VenuesId");
+                    b.HasOne("BeCapstone.Models.VenuePrice", null)
+                        .WithOne("Venues")
+                        .HasForeignKey("BeCapstone.Models.Venue", "VenuePriceId");
 
-                    b.Navigation("Venues");
-                });
-
-            modelBuilder.Entity("BeCapstone.Models.VenueCounty", b =>
-                {
-                    b.HasOne("BeCapstone.Models.Venue", "Venues")
-                        .WithMany("VenueCounties")
-                        .HasForeignKey("VenuesId");
-
-                    b.Navigation("Venues");
+                    b.HasOne("BeCapstone.Models.VenueType", null)
+                        .WithOne("Venues")
+                        .HasForeignKey("BeCapstone.Models.Venue", "VenueTypeId");
                 });
 
             modelBuilder.Entity("BeCapstone.Models.VenueHourOfOperation", b =>
                 {
                     b.HasOne("BeCapstone.Models.Venue", "Venues")
-                        .WithMany("VenueHourOfOperations")
-                        .HasForeignKey("VenuesId");
-
-                    b.Navigation("Venues");
-                });
-
-            modelBuilder.Entity("BeCapstone.Models.VenuePrice", b =>
-                {
-                    b.HasOne("BeCapstone.Models.Venue", "Venues")
-                        .WithMany("VenuePrices")
-                        .HasForeignKey("VenuesId");
-
-                    b.Navigation("Venues");
-                });
-
-            modelBuilder.Entity("BeCapstone.Models.VenueType", b =>
-                {
-                    b.HasOne("BeCapstone.Models.Venue", "Venues")
-                        .WithMany("VenueTypes")
+                        .WithMany()
                         .HasForeignKey("VenuesId");
 
                     b.Navigation("Venues");
@@ -414,7 +362,7 @@ namespace BeCapstone.Migrations
             modelBuilder.Entity("BeCapstone.Models.VenueZipCode", b =>
                 {
                     b.HasOne("BeCapstone.Models.Venue", "Venues")
-                        .WithMany("VenueZipCodes")
+                        .WithMany()
                         .HasForeignKey("VenuesId");
 
                     b.Navigation("Venues");
@@ -435,23 +383,34 @@ namespace BeCapstone.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BeCapstone.Models.Venue", b =>
+            modelBuilder.Entity("BeCapstone.Models.Payment", b =>
                 {
-                    b.Navigation("Payments");
+                    b.Navigation("Venues");
+                });
 
-                    b.Navigation("VenueCities");
+            modelBuilder.Entity("BeCapstone.Models.VenueCity", b =>
+                {
+                    b.Navigation("Venues");
+                });
 
-                    b.Navigation("VenueClothingTypes");
+            modelBuilder.Entity("BeCapstone.Models.VenueClothingType", b =>
+                {
+                    b.Navigation("Venues");
+                });
 
-                    b.Navigation("VenueCounties");
+            modelBuilder.Entity("BeCapstone.Models.VenueCounty", b =>
+                {
+                    b.Navigation("Venues");
+                });
 
-                    b.Navigation("VenueHourOfOperations");
+            modelBuilder.Entity("BeCapstone.Models.VenuePrice", b =>
+                {
+                    b.Navigation("Venues");
+                });
 
-                    b.Navigation("VenuePrices");
-
-                    b.Navigation("VenueTypes");
-
-                    b.Navigation("VenueZipCodes");
+            modelBuilder.Entity("BeCapstone.Models.VenueType", b =>
+                {
+                    b.Navigation("Venues");
                 });
 #pragma warning restore 612, 618
         }
