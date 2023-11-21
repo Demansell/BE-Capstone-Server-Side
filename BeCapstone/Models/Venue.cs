@@ -17,7 +17,7 @@
         public int? VenueClothingTypeId { get; set; }
         public string? VenueImage { get; set; }
         public int? PaymentId { get; set; }
-        public string? UserId { get; set; }
+        public int? UserId { get; set; }
         public bool LikedVenue { get; set; }
         public bool VistedVenue { get; set; }
         public bool NextNightOut { get; set; }

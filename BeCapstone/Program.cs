@@ -68,6 +68,15 @@ app.MapGet("/api/Payments/{id}", (BeCapstoneDbContext db, int id) =>
 }
 );
 
+//get people by venue id
+app.MapGet("/api/PeopleByVenueId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var people = db.PeopleGoings.Where(s => s.VenueId == id);
+    // .Include(s => s.Order).ToList();
+    return people;
+}
+);
+
 // Post a Payment
 
 app.MapPost("/api/Payments", (BeCapstoneDbContext db, Payment payment) =>
@@ -111,7 +120,7 @@ app.MapGet("/api/PeopleGoing", (BeCapstoneDbContext db) =>
     return Results.Ok(peoplegoings);
 });
 
-// get paymetns by Id
+// get peoplegoing by Id
 
 app.MapGet("/api/PeopleGoing/{id}", (BeCapstoneDbContext db, int id) =>
 {
@@ -221,7 +230,7 @@ app.MapGet("/api/Venues/{id}", (BeCapstoneDbContext db, int id) =>
 
 // Post a PersonGoing
 
-// create a disaster
+// create a Venue
 app.MapPost("api/Venue", async (BeCapstoneDbContext db, Venue venue) =>
 {
     db.Venues.Add(venue);
