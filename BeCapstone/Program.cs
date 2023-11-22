@@ -304,26 +304,89 @@ app.MapGet("/api/NexyNightOutVenues", (BeCapstoneDbContext db) =>
 });
 
 
-// Venue City Endpoints
-
-// Get Single Venue City
-
-app.MapGet("/venueCity1", (BeCapstoneDbContext db) =>
+//get all Zipcodes
+app.MapGet("/api/Zipcode", (BeCapstoneDbContext db) =>
 {
-    var venueCities = db.Venues
-        .Where(s => s.VenueCityId == 1)
-        .Include(s => s.VenueCities)
-        .ToList();
-    return venueCities;
+    List<VenueZipCode> zipcodes = db.VenueZipCodes.ToList();
+    if (zipcodes.Count == 0)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(zipcodes);
 });
 
-app.MapGet("/venueCity2", (BeCapstoneDbContext db) =>
+//get all Venue Cities
+app.MapGet("/api/VenueCities", (BeCapstoneDbContext db) =>
 {
-    var venueCities = db.Venues
-        .Where(s => s.VenueCityId == 2)
-        .Include(s => s.VenueCities)
-        .ToList();
-    return venueCities;
+    List<VenueCity> cities = db.VenueCities.ToList();
+    if (cities.Count == 0)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(cities);
 });
+
+//get all Venue Clothing type
+app.MapGet("/api/VenueClothingtypes", (BeCapstoneDbContext db) =>
+{
+    List<VenueClothingType> clothes = db.VenueClothingTypes.ToList();
+    if (clothes.Count == 0)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(clothes);
+});
+
+//get all Venue Counties
+app.MapGet("/api/VenueCounties", (BeCapstoneDbContext db) =>
+{
+    List<VenueCounty> counties = db.VenueCounties.ToList();
+    if (counties.Count == 0)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(counties);
+});
+
+//get all Venue Hours of Operations
+app.MapGet("/api/VenueHoursOfOperations", (BeCapstoneDbContext db) =>
+{
+    List<VenueHourOfOperation> hours = db.VenueHourOfOperations.ToList();
+    if (hours.Count == 0)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(hours);
+});
+
+//get all Venue Prices
+app.MapGet("/api/VenuePrices", (BeCapstoneDbContext db) =>
+{
+    List<VenuePrice> price = db.VenuePrices.ToList();
+    if (price.Count == 0)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(price);
+});
+
+//get all Venue Types
+app.MapGet("/api/VenueTypes", (BeCapstoneDbContext db) =>
+{
+    List<VenueType> type = db.VenueTypes.ToList();
+    if (type.Count == 0)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(type);
+});
+
 
 app.Run();

@@ -110,10 +110,10 @@ namespace BeCapstone.Migrations
                     b.Property<int?>("PaymentTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<int?>("PeopleGoingId")
+                        .HasColumnType("integer");
 
-                    b.Property<int?>("UserId1")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("VenueCityId")
@@ -154,7 +154,7 @@ namespace BeCapstone.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Venues");
                 });
@@ -352,7 +352,7 @@ namespace BeCapstone.Migrations
                 {
                     b.HasOne("BeCapstone.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });

@@ -17,21 +17,21 @@
         public int? VenueClothingTypeId { get; set; }
         public string? VenueImage { get; set; }
         public int? PaymentId { get; set; }
+        public int? PeopleGoingId { get; set; }
         public int? UserId { get; set; }
         public bool LikedVenue { get; set; }
         public bool VistedVenue { get; set; }
         public bool NextNightOut { get; set; }
-        public List<PeopleGoing> PeopleGoings { get; set; }
+        public List<PeopleGoing>? PeopleGoings { get; set; }
         public User? User { get; set; }
-
-        public List <VenueCity> VenueCities { get; set; }
-        public List <VenueClothingType> VenueClothingTypes { get; set; }
-        public List <VenueCounty> VenueCounties { get; set; }
-        public List <VenueHourOfOperation> VenueHourOfOperations { get; set; }
-        public List <VenuePrice> VenuePrices { get; set; }
-        public List <VenueType> VenueTypes { get; set; }
-        public List <VenueZipCode> VenueZipCodes { get; set;}
-        public List <Payment> Payments { get; set; }
+        public List <VenueCity>? VenueCities { get; set; }
+        public List <VenueClothingType>? VenueClothingTypes { get; set; }
+        public List <VenueCounty>? VenueCounties { get; set; }
+        public List <VenueHourOfOperation>? VenueHourOfOperations { get; set; }
+        public List <VenuePrice>? VenuePrices { get; set; }
+        public List <VenueType>? VenueTypes { get; set; }
+        public List <VenueZipCode>? VenueZipCodes { get; set;}
+        public List <Payment>? Payments { get; set; }
 
     }
 }
