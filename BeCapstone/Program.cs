@@ -370,7 +370,7 @@ app.MapGet("/api/VenuesByVenueClothingTypeId/{id}", (BeCapstoneDbContext db, int
 }
 );
 
-// get Cities by Id
+// get Clothing by Id
 app.MapGet("/api/ClothingById/{id}", (BeCapstoneDbContext db, int id) =>
 {
     VenueClothingType cloth = db.VenueClothingTypes.SingleOrDefault(c => c.Id == id);
@@ -390,6 +390,26 @@ app.MapGet("/api/VenueCounties", (BeCapstoneDbContext db) =>
         return Results.NotFound();
     }
 
+    return Results.Ok(counties);
+});
+
+//venues by VenueCountyId
+app.MapGet("/api/VenuesByVenueCountyId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var county = db.Venues.Where(s => s.VenueCountyId == id);
+    // .Include(s => s.Order).ToList();
+    return county;
+}
+);
+
+// get Counties by Id
+app.MapGet("/api/VenueCountyId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    VenueCounty counties = db.VenueCounties.SingleOrDefault(c => c.Id == id);
+    if (counties == null)
+    {
+        return Results.NotFound();
+    }
     return Results.Ok(counties);
 });
 
