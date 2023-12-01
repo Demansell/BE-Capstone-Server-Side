@@ -33,7 +33,8 @@ namespace BeCapstone.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Uid = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,7 +57,7 @@ namespace BeCapstone.Migrations
                     VenueTypeId = table.Column<int>(type: "integer", nullable: true),
                     VenuePriceId = table.Column<int>(type: "integer", nullable: true),
                     PaymentTypeId = table.Column<int>(type: "integer", nullable: true),
-                    VenueHoursofOperationId = table.Column<string>(type: "text", nullable: true),
+                    VenueHoursofOperationId = table.Column<int>(type: "integer", nullable: true),
                     VenueClothingTypeId = table.Column<int>(type: "integer", nullable: true),
                     VenueImage = table.Column<string>(type: "text", nullable: true),
                     PaymentId = table.Column<int>(type: "integer", nullable: true),
@@ -183,13 +184,6 @@ namespace BeCapstone.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     HoursOfOperation = table.Column<string>(type: "text", nullable: true),
-                    Monday = table.Column<string>(type: "text", nullable: true),
-                    Tuesday = table.Column<string>(type: "text", nullable: true),
-                    Wednesday = table.Column<string>(type: "text", nullable: true),
-                    Thursday = table.Column<string>(type: "text", nullable: true),
-                    Friday = table.Column<string>(type: "text", nullable: true),
-                    Saturday = table.Column<string>(type: "text", nullable: true),
-                    Sunday = table.Column<string>(type: "text", nullable: true),
                     VenuesId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>

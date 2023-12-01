@@ -425,6 +425,26 @@ app.MapGet("/api/VenueHoursOfOperations", (BeCapstoneDbContext db) =>
     return Results.Ok(hours);
 });
 
+//venues by VenueHoursofOperationId
+app.MapGet("/api/VenueHoursofOperationId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var hours = db.Venues.Where(s => s.VenueHoursofOperationId == id);
+    // .Include(s => s.Order).ToList();
+    return hours;
+}
+);
+
+// get Hours of Operations by Id
+app.MapGet("/api/VenueOperationId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    VenueHourOfOperation hours = db.VenueHourOfOperations.SingleOrDefault(c => c.Id == id);
+    if (hours == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(hours);
+});
+
 //get all Venue Prices
 app.MapGet("/api/VenuePrices", (BeCapstoneDbContext db) =>
 {

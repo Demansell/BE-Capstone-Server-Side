@@ -74,6 +74,10 @@ namespace BeCapstone.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -125,8 +129,8 @@ namespace BeCapstone.Migrations
                     b.Property<int?>("VenueCountyId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("VenueHoursofOperationId")
-                        .HasColumnType("text");
+                    b.Property<int?>("VenueHoursofOperationId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("VenueImage")
                         .HasColumnType("text");
