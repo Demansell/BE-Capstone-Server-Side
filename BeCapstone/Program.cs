@@ -361,6 +361,26 @@ app.MapGet("/api/VenueClothingtypes", (BeCapstoneDbContext db) =>
     return Results.Ok(clothes);
 });
 
+//venues by VenueClothingTypeId
+app.MapGet("/api/VenuesByVenueClothingTypeId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var clothing = db.Venues.Where(s => s.VenueClothingTypeId == id);
+    // .Include(s => s.Order).ToList();
+    return clothing;
+}
+);
+
+// get Cities by Id
+app.MapGet("/api/ClothingById/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    VenueClothingType cloth = db.VenueClothingTypes.SingleOrDefault(c => c.Id == id);
+    if (cloth == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(cloth);
+});
+
 //get all Venue Counties
 app.MapGet("/api/VenueCounties", (BeCapstoneDbContext db) =>
 {
