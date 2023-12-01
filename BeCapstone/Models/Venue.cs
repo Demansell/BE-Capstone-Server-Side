@@ -13,12 +13,11 @@
         public int? VenueTypeId { get; set; }
         public int? VenuePriceId { get; set; }
         public int? PaymentTypeId { get; set; }
-        public int? VenueHoursofOperationId { get; set; }
+        public string? VenueHoursofOperationId { get; set; }
         public int? VenueClothingTypeId { get; set; }
         public string? VenueImage { get; set; }
         public int? PaymentId { get; set; }
-        public int? PeopleGoingId { get; set; }
-        public int? UserId { get; set; }
+        public string? Uid { get; set; }
         public bool LikedVenue { get; set; }
         public bool VistedVenue { get; set; }
         public bool NextNightOut { get; set; }

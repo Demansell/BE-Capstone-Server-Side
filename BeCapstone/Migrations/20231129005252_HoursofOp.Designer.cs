@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeCapstone.Migrations
 {
     [DbContext(typeof(BeCapstoneDbContext))]
-    [Migration("20231121031200_Create")]
-    partial class Create
+    [Migration("20231129005252_HoursofOp")]
+    partial class HoursofOp
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,8 +113,8 @@ namespace BeCapstone.Migrations
                     b.Property<int?>("PaymentTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("PeopleGoingId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Uid")
+                        .HasColumnType("text");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");
@@ -128,8 +128,8 @@ namespace BeCapstone.Migrations
                     b.Property<int?>("VenueCountyId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("VenueHoursofOperationId")
-                        .HasColumnType("integer");
+                    b.Property<string>("VenueHoursofOperationId")
+                        .HasColumnType("text");
 
                     b.Property<string>("VenueImage")
                         .HasColumnType("text");
@@ -233,32 +233,11 @@ namespace BeCapstone.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Friday")
-                        .HasColumnType("text");
-
                     b.Property<string>("HoursOfOperation")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Monday")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Saturday")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Sunday")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Thursday")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Tuesday")
                         .HasColumnType("text");
 
                     b.Property<int?>("VenuesId")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Wednesday")
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

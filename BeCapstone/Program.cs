@@ -231,7 +231,7 @@ app.MapGet("/api/Venues/{id}", (BeCapstoneDbContext db, int id) =>
 // Post a PersonGoing
 
 // create a Venue
-app.MapPost("api/Venue", async (BeCapstoneDbContext db, Venue venue) =>
+app.MapPost("api/Venue", (BeCapstoneDbContext db, Venue venue) =>
 {
     db.Venues.Add(venue);
     db.SaveChanges();
@@ -242,7 +242,7 @@ app.MapPost("api/Venue", async (BeCapstoneDbContext db, Venue venue) =>
 
 app.MapPut("api/Venue/{id}", async (BeCapstoneDbContext db, int id, Venue venue) =>
 {
-    Venue venueToUpdate = await db.Venues.SingleOrDefaultAsync(venue => venue.Id == id);
+    Venue venueToUpdate = db.Venues.FirstOrDefault(c => c.Id == id);
     if (venueToUpdate == null)
     {
         return Results.NotFound();
@@ -327,6 +327,27 @@ app.MapGet("/api/VenueCities", (BeCapstoneDbContext db) =>
 
     return Results.Ok(cities);
 });
+
+//venues by cityId
+app.MapGet("/api/VenuesByCityId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var cities = db.Venues.Where(s => s.VenueCityId == id);
+    // .Include(s => s.Order).ToList();
+    return cities;
+}
+);
+
+// get Cities by Id
+app.MapGet("/api/CitiesById/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    VenueCity cities = db.VenueCities.SingleOrDefault(c => c.Id == id);
+    if (cities == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(cities);
+});
+
 
 //get all Venue Clothing type
 app.MapGet("/api/VenueClothingtypes", (BeCapstoneDbContext db) =>

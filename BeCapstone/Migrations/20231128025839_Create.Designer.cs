@@ -3,6 +3,7 @@ using System;
 using BeCapstone;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeCapstone.Migrations
 {
     [DbContext(typeof(BeCapstoneDbContext))]
-    partial class BeCapstoneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231128025839_Create")]
+    partial class Create
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,11 +233,32 @@ namespace BeCapstone.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Friday")
+                        .HasColumnType("text");
+
                     b.Property<string>("HoursOfOperation")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Monday")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Saturday")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Sunday")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Thursday")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Tuesday")
                         .HasColumnType("text");
 
                     b.Property<int?>("VenuesId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Wednesday")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

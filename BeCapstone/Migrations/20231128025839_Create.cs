@@ -56,15 +56,15 @@ namespace BeCapstone.Migrations
                     VenueTypeId = table.Column<int>(type: "integer", nullable: true),
                     VenuePriceId = table.Column<int>(type: "integer", nullable: true),
                     PaymentTypeId = table.Column<int>(type: "integer", nullable: true),
-                    VenueHoursofOperationId = table.Column<int>(type: "integer", nullable: true),
+                    VenueHoursofOperationId = table.Column<string>(type: "text", nullable: true),
                     VenueClothingTypeId = table.Column<int>(type: "integer", nullable: true),
                     VenueImage = table.Column<string>(type: "text", nullable: true),
                     PaymentId = table.Column<int>(type: "integer", nullable: true),
-                    PeopleGoingId = table.Column<int>(type: "integer", nullable: true),
-                    UserId = table.Column<int>(type: "integer", nullable: true),
+                    Uid = table.Column<string>(type: "text", nullable: true),
                     LikedVenue = table.Column<bool>(type: "boolean", nullable: false),
                     VistedVenue = table.Column<bool>(type: "boolean", nullable: false),
-                    NextNightOut = table.Column<bool>(type: "boolean", nullable: false)
+                    NextNightOut = table.Column<bool>(type: "boolean", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
