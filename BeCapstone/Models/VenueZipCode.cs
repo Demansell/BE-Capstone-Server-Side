@@ -2,8 +2,8 @@
 {
     public class VenueZipCode
     {
-        public string Id { get; set; }
-        public string? Zipcode { get; set; }
+        public int? Id { get; set; }
+        public int? Zipcode { get; set; }
         public Venue? Venues { get; set; }
     }
 }

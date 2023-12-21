@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BeCapstone.Migrations
 {
     [DbContext(typeof(BeCapstoneDbContext))]
-    [Migration("20231201023759_Create")]
+    [Migration("20231218183853_Create")]
     partial class Create
     {
         /// <inheritdoc />
@@ -78,15 +78,12 @@ namespace BeCapstone.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Uid")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -294,14 +291,17 @@ namespace BeCapstone.Migrations
 
             modelBuilder.Entity("BeCapstone.Models.VenueZipCode", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("Id"));
 
                     b.Property<int?>("VenuesId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Zipcode")
-                        .HasColumnType("text");
+                    b.Property<int?>("Zipcode")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

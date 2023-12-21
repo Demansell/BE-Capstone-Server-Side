@@ -13,6 +13,7 @@
         public int? VenueTypeId { get; set; }
         public int? VenuePriceId { get; set; }
         public int? PaymentTypeId { get; set; }
+
         public int? VenueHoursofOperationId { get; set; }
         public int? VenueClothingTypeId { get; set; }
         public string? VenueImage { get; set; }

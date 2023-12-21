@@ -48,17 +48,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
-// get all payments 
-app.MapGet("/api/Payments", (BeCapstoneDbContext db) =>
-{
-    List<Payment> payments = db.Payments.ToList();
-    if (payments.Count == 0)
-    {
-        return Results.NotFound();
-    }
-
-    return Results.Ok(payments);
-});
 
 // get Payment by Id
 app.MapGet("/api/Payments/{id}", (BeCapstoneDbContext db, int id) =>
@@ -68,14 +57,6 @@ app.MapGet("/api/Payments/{id}", (BeCapstoneDbContext db, int id) =>
 }
 );
 
-//get people by venue id
-app.MapGet("/api/PeopleByVenueId/{id}", (BeCapstoneDbContext db, int id) =>
-{
-    var people = db.PeopleGoings.Where(s => s.VenueId == id);
-    // .Include(s => s.Order).ToList();
-    return people;
-}
-);
 
 // Post a Payment
 
@@ -131,6 +112,15 @@ app.MapGet("/api/PeopleGoing/{id}", (BeCapstoneDbContext db, int id) =>
     }
     return Results.Ok(peoplegoing);
 });
+
+//get people by venue id
+app.MapGet("/api/PeopleByVenueId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var people = db.PeopleGoings.Where(s => s.VenueId == id);
+    // .Include(s => s.Order).ToList();
+    return people;
+}
+);
 
 // Post a PersonGoing
 
@@ -316,6 +306,26 @@ app.MapGet("/api/Zipcode", (BeCapstoneDbContext db) =>
     return Results.Ok(zipcodes);
 });
 
+//venues by VenueZipcodeId
+app.MapGet("/api/VenuesByVenueZipcodeId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var zip = db.Venues.Where(s => s.VenueZipcodeId == id);
+    // .Include(s => s.Order).ToList();
+    return zip;
+}
+);
+
+// get Venues by Id
+app.MapGet("/api/VenueZipcodeId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    VenueZipCode cities = db.VenueZipCodes.SingleOrDefault(c => c.Id == id);
+    if (cities == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(cities);
+});
+
 //get all Venue Cities
 app.MapGet("/api/VenueCities", (BeCapstoneDbContext db) =>
 {
@@ -445,6 +455,36 @@ app.MapGet("/api/VenueOperationId/{id}", (BeCapstoneDbContext db, int id) =>
     return Results.Ok(hours);
 });
 
+// get all payments 
+app.MapGet("/api/Payments", (BeCapstoneDbContext db) =>
+{
+    List<Payment> payments = db.Payments.ToList();
+    if (payments.Count == 0)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(payments);
+});
+
+//venues by PaymentTypeId
+app.MapGet("/api/PaymentTypeId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var hours = db.Venues.Where(s => s.PaymentTypeId == id);
+    // .Include(s => s.Order).ToList();
+    return hours;
+}
+);
+
+//venues by PaymentTypeId
+app.MapGet("/api/VenuesByPaymentTypeId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var payments = db.Venues.Where(s => s.PaymentTypeId == id);
+    // .Include(s => s.Order).ToList();
+    return payments;
+}
+);
+
 //get all Venue Prices
 app.MapGet("/api/VenuePrices", (BeCapstoneDbContext db) =>
 {
@@ -454,6 +494,27 @@ app.MapGet("/api/VenuePrices", (BeCapstoneDbContext db) =>
         return Results.NotFound();
     }
 
+    return Results.Ok(price);
+});
+
+//venues by VenuePriceId
+app.MapGet("/api/GetVenuesVenuePriceId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var price = db.Venues.Where(s => s.VenuePriceId == id);
+    // .Include(s => s.Order).ToList();
+    return price;
+}
+);
+
+
+// get Prices by Id
+app.MapGet("/api/GetPricesByVenuePriceId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    VenuePrice price = db.VenuePrices.SingleOrDefault(c => c.Id == id);
+    if (price == null)
+    {
+        return Results.NotFound();
+    }
     return Results.Ok(price);
 });
 
@@ -467,6 +528,41 @@ app.MapGet("/api/VenueTypes", (BeCapstoneDbContext db) =>
     }
 
     return Results.Ok(type);
+});
+
+//venues by VenueTypeId
+app.MapGet("/api/GetVenuesByVenueTypeId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    var type = db.Venues.Where(s => s.VenueTypeId == id);
+    // .Include(s => s.Order).ToList();
+    return type;
+}
+);
+
+
+// get Types by Id
+app.MapGet("/api/GetTypesByVenueTypeId/{id}", (BeCapstoneDbContext db, int id) =>
+{
+    VenueType type = db.VenueTypes.SingleOrDefault(c => c.Id == id);
+    if (type == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(type);
+});
+
+// random Venue Generator
+app.MapGet("/randomVenue", (BeCapstoneDbContext db) =>
+{
+    // Get the count of movies in the database
+    var totalVenuesCount = db.Venues.Count();
+    // Generate a random movie ID
+    var random = new Random();
+    var randomVenueId = random.Next(1, totalVenuesCount + 1);
+    // Fetch the random movie from the database
+    var randomVenue = db.Venues.SingleOrDefaultAsync(u => u.Id == randomVenueId);
+    // Return the random movie
+    return randomVenue;
 });
 
 
